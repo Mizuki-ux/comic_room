@@ -6,11 +6,122 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/806cf7db5f.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+        .menu {
+            width: 100%;/* フレックスボックスを使用 */
+            justify-content: space-between; /* 左右に配置 */
+            background-color: #333; /* 背景色を青に変更 */
+            margin: 0 auto;
+            padding: 0 auto;/* 内側の余白を追加 */
+        }
+
+      .navbar-brand,
+      .navbar-nav a {
+        text-decoration: none; /* 下線を消す */
+        color: #fff; /* 親要素の色を引き継ぐ */
+        display: inline-block; /* インラインブロックにして、余白を制御 */
+        font-size: 25px;
+      }
+
+      .navbar-brand {
+        padding: 10px 40px 0 30px;
+         font-family: 'Impact', sans-serif; /* フォントファミリーを変更 */
+
+      }
+
+      .navbar-nav {
+        list-style: none; /* デフォルトのリストマーカーを消す */
+        text-align: right;/* マージンをリセット */
+      }
+
+      .navbar-nav li {
+        display: inline; /* リストアイテムを横並びにする */
+        margin-right: 20px; /* アイテム間のスペース */
+        font-weight: 500;
+        font-size: 20px;
+        text-align: center;
+      }
+
+      .navbar-nav a:hover {
+        color: #007BFF; /* ホバー時の色を設定（必要に応じて変更） */
+      }
+
+      .link {
+        color:#fff;
+      }
+
+
+      .notice  {
+        color: #0000FF;
+        padding:0 35px;
+        background: #FF00FF;
+      }
+
+
+    </style>
   </head>
 
   <body>
+    <header>
+      <nav class="menu">
+        <a class="navbar-brand" href="/">ComicRoom へようこそ
+          <% if current_user %>
+          　<%= current_user.name %> さん
+          <% else %>
+            ゲストさん
+        　<% end %>
+        </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ml-auto">
+          <% if user_signed_in? %>
+            <li>
+              <%= link_to 'Post Form', new_post_path %>
+            </li>
+            <li>
+              <%= link_to 'About', about_path %>
+            </li>
+            <li>
+              <%= link_to 'Post Users', posts_path %>
+            </li>
+            <li>
+            <%= link_to 'My Page', mypage_path(current_user.id) %>
+            </li>
+            <li>
+              <%= link_to "Log Out", destroy_user_session_path, method: :delete %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to 'About', about_path %>
+            </li>
+            <li>
+              <%= link_to "Sign Up", new_user_registration_path %>
+            </li>
+            <li>
+              <%= link_to "Log In", new_user_session_path %>
+            </li>
+          <% end %>
+          </ul>
+        </div>
+      </nav>
+  </header>
+  <main>
+    <p class="notice">
+    <%= flash[:notice] %>
+    </p>
     <%= yield %>
+  </main>
+
   </body>
 </html>

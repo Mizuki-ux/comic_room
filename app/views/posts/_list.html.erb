@@ -1,0 +1,14 @@
+ <% if @post.errors.any? %>
+      <h3 class="error"><%= @post.errors.count %>errors prohibited this obj from being saved:</h3>
+      <ul class="error">
+        <% @post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    
+    <style>
+      .error {
+        color: #FF0000;
+      }
+    </style>

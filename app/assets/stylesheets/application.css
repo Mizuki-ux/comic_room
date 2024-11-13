@@ -1,4 +1,48 @@
-/*
+
+.flash-message {
+  padding: 16px 24px;
+  margin: 16px 0px;
+}
+
+.flash-message.notice  {
+  color: green;
+}
+
+.flash-message.error {
+  color: green;
+}
+
+.flash-message.alert {
+  color: #930403;
+}
+
+body {
+  font-family: verdana, arial, helvetica, sans-serif;
+
+}
+
+h1 {
+  margin: 33px 0 0 25px;
+  font-size: 26px;
+  line-height: 18px;
+}
+
+p {
+  font-size: 13px;
+  line-height: 18px;
+  margin:33px 60px;
+}
+
+a {
+  color: #666;
+
+}
+
+a:hover {
+  color: #FFF;
+  cursor: pointer;
+  background-color: black;
+}/*/*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
  *

@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="signup-form">
+<h2 class="title">Sign up</h2>
+
+<%= form_with model: @user, url: user_registration_path do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+  
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autofocus: true %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation,autofocus: true, autocomplete: "new-password" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>
+ </div>
+</div>
+<style>
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    margin:0 auto;
+  }
+  
+  .title {
+    font-size: 25px;
+  }
+  
+  .field {
+    height: 50px;
+    margin: 10px 0;
+  }
+  
+  .signup-form {
+  text-align: left; /* 左寄せに設定 */
+}
+
+  .Sign up {
+      font-size: 30px;
+    }
+    
+ .actions input[type="submit"]{
+        background: linear-gradient(to right, #fc4a1a, #1a2a6c);
+        color: #fff;
+        border-radius: 10px;
+        font-size: 20px;
+    }
+
+
+</style>
