@@ -23,7 +23,7 @@
           </table>
         </div>
    
-      <div class="cols col-md-8 offset-md-1">
+      <div class="cols col-md-7 offset-md-1">
      　  <h2 class="users">Post</h2>
             <table class="tables table-hover table-inverse">
               <thead>
@@ -37,10 +37,10 @@
              <tbody>
                 <tr>
                   <td class="text">
-                       <%= link_to user_path(@post.user.id) do %>
-                  <%= image_tag @post.user.get_profile_image(100,100) %>
-                  <br><%= @post.user.name %>
-                       <% end %>
+                  <%= image_tag url_for(@post.image), size: "100x100" %>
+                      <%= link_to user_path(@post.user.id) do %>
+                      <br><%= @post.user.name %>
+                      <% end %>
                   </td>
                   <td class="text">
                   <%= @post.title %>

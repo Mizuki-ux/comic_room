@@ -23,7 +23,7 @@
           </table>
         </div>
 
-        <div class="cols col-md-8 offset-md-1">
+        <div class="cols col-md-7 offset-md-1">
           <% if @post %>
      　　　<h2 class="users"<%= @post.user.name %>></h2>
               <table class="table table-hover table-inverse">
@@ -79,13 +79,12 @@
   }
 
   .cols {
-    width: 100%;
-    white-space: nowrap;
+    width: 80%;
     overflow: auto;
   }
 
   .text {
-   padding: 50px;
+   padding: 0 30px;
  }
 
   .users {
@@ -100,7 +99,7 @@
 
   .tables {
      /* テーブルの上下間隔を追加 */
-    padding: 20px;
+    width: 80%;
   }
 
   .post {
