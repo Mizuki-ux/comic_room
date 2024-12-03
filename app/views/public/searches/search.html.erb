@@ -1,0 +1,86 @@
+<div class="container">
+  <% if flash[:error] %>
+  <div class="alert alert-danger">
+    <%= flash[:error] %>
+  </div>
+<% end %>
+ <% flash.delete(:error) %>
+<% if params[:range] == "user" %>
+  <% if @users.present? %>
+    <h2>ユーザー検索結果</h2>
+    <div class="user-results">
+        <% @users.each do |user| %>
+          <div class="user">
+            <%= image_tag user.get_profile_image(100,100) %>
+            <br><%= link_to "#{user.name}", user_path(user) %>
+         </div>
+        <% end %>
+     </div>
+  <% else %>
+    <h2>ユーザ検索結果</h2>  
+    <p class="post-aria">ユーザーが見つかりません</p>
+  <% end %>
+<% elsif params[:range] == "post" %>
+  <% if @posts.present? %>
+    <h2>投稿検索結果</h2>
+    <div class="post-results">
+        <% @posts.each do |post| %>
+        <div class="post">
+          <%= image_tag post.get_image, size: 100  %>
+          <br><%= link_to "#{post.title}", post_path(post) %>
+     </div>
+        <% end %>
+      </div>
+  <% else %>
+    <h2>投稿検索結果</h2>
+    <p class="post-aria">投稿が見つかりません</p>
+  <% end %>
+  <% elsif params[:range] == "product" %>
+  <% if @products.present? %>
+    <h2>タイトル検索結果</h2>
+   <div class="product-results">
+        <% @products.each do |product| %>
+        <div class="product">
+          <%= image_tag product.image, size: 100 %>
+           <br><%= link_to "#{product.name}", product_path(product) %>
+          </div>
+        <% end %>
+     </div>
+  <% else %>
+    <h2>タイトル検索結果</h2>
+    <p class="post-aria">タイトルが見つかりません</p>
+  <% end %>
+<% end %>
+</div>
+
+
+<style>
+  .container {
+    text-align: center;
+  }
+  
+  .post-aria {
+    color: #ff0000;
+    padding: 10px;
+  }
+  
+  .user-results, .post-results, .product-results {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.user, .post, .product {
+  width: calc(14.28% - 20px); /* 3つ横並びにする場合の幅調整 */
+  margin: 10px;
+}
+
+@media (max-width: 785px) {
+  .user-results, .post-results, .product-results {
+  display: block;
+}
+
+.user, .post, .product {
+  width: calc(33.33% - 20px); /* 3つ横並びにする場合の幅調整 */
+  margin: 10px;
+}
+</style>

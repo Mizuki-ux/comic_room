@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin - comic_room</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <script src="https://kit.fontawesome.com/806cf7db5f.js" crossorigin="anonymous"></script>
+  <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <style>
+     * {
+        margin: 0;
+        padding: 0;
+      }
+
+      header {
+        text-align: right;
+        background: #000;
+      }
+
+      .navbar-admin a {
+        text-decoration: none; /* 下線を消す */
+        color: #fff;
+        display: inline-block; /* インラインブロックにして、余白を制御 */
+        font-size: 25px;
+      }
+
+      .navbar-brend {
+        font-family: 'Impact', sans-serif; /* フォントファミリーを変更 */
+        font-size: 30px;
+        color: #fff;
+        text-ailgn: left;
+      }
+
+      .navbar-admin a:hover {
+        color: #007BFF; /* ホバー時の色を設定（必要に応じて変更） */
+      }
+
+      .fa-solid {
+        background: #eee;
+      }
+  </style>
+</head>
+
+<body>
+  <header>
+     <a class="navbar-brend" href="/admin/dashboards">ComicRoom へようこそ(管理画面)</a>
+      <% if admin_signed_in? %>
+        <div class="search_form">
+          <%= form_with url: admin_search_path, local: true, method: :get do |f| %>
+            <%= f.text_field :word %>
+            <%= f.select :range, options_for_select({ "User" => "user", "Post" => "post", "Product" => "product" })  %>
+            <%= f.select :search, options_for_select([["完全一致","perfect"], ["前方一致","forward"],  ["後方一致","backward"], ["部分一致","partial"]]) %>
+            <%= f.submit "検索", class: "btn btn-primary" %>
+          <% end %>
+        </div>
+      <% end %>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+   <i class="fa-solid fa-caret-down"></i>
+ </button>
+<div class="collapse navbar-collapse" id="navbarNavDropdown">
+  <ul class="navbar-admin ml-auto">
+  <% if admin_signed_in? %>
+    <li>
+      <%= link_to 'DashBoard ', admin_dashboards_path %>
+    </li>
+    <li>
+      <%= link_to 'Product Index', admin_products_path %>
+    </li>
+    <li>
+      <%= link_to 'Log Out', destroy_admin_session_path, method: :delete %>
+    </li>
+  <% end %>
+  </ul>
+</div>
+  </header>
+  <main>
+  <p class="notice">
+    <%= flash[:notice] %>
+  </p>
+    <%= yield %>
+  </main>
+</body>
+</html>

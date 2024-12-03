@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="grid grid-cols-1 items-start gap-9 md:grid-cols-2">
+    <div class="a">
+      <h1 class="text-2xl font-bold">
+        <%= @product.name %>
+      </h1>
+    </div>
+  <div class="row">
+    <div class="col col-md-5">
+      <%= image_tag @product.image, size: "400x400", class: "responsive" %>
+    </div>
+    <div class="col col-md-6 top-0">
+      <div class="description">
+      <h3>description</h3>
+      <p>
+        <%= @product.description %>
+      </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>コメント</h2>
+<% if @matching_post %>
+<div class="name">
+  <h3><%= @user.name %>: <span class="comment"><%= @matching_post.body %></span></h3>
+</div>
+<% else %>
+  <p>一致する投稿は見つかりませんでした。</p>
+<% end %>
+
+<style>
+  .description {
+    padding: 0 2rem;
+  }
+
+  .edit {
+    font-size: 20px;
+    margin: 1rem 0;
+  }
+  
+  .responsive {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .comment {
+    font-size: 23px;
+  }
+  
+  .name {
+    margin: 0 2rem;
+  }
+  
+</style>

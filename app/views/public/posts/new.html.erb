@@ -1,0 +1,59 @@
+<div class="container">
+ <%= form_with model: @post do |f| %>
+  <%= render 'list', posts: @posts %>
+   <div class="nil">
+    <h4 class="title">画像</h4>
+    <%= f.file_field :image, accept: "image/*" %>
+   </div>
+
+    <div class="nil">
+    <h4 class="title">Title
+     <span class="nil">
+     <%= f.select :product_id, options_for_select(@products.map{ |p| [p.name, p.id] }), class: "subtitle" %>
+     </span>
+    </h4>
+    <%= f.text_field :title, size: "45" %>
+    </div>
+
+    <div class="nil">
+    <h4 class="title">comment</h4>
+    <%= f.text_area :body, size: "50x5"%>
+    </div>
+    
+    <div class=nil>
+    <%= f.submit 'post' , class: "submit"%>
+    </div>
+ <% end %>
+</div>
+
+<style>
+  .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 500px;
+        margin:0 auto;
+    }
+    
+    .title {
+        font-size: 25px;
+    }
+    
+    .nil {
+        height: 100px;
+        margin: 10px;
+    }
+    
+    .submit {
+        background: linear-gradient(to right, #fc4a1a, #1a2a6c);
+        color: #fff;
+        border-radius: 10px;
+        font-size: 30px;
+        margin: 60px 150px;
+    }
+    
+    .subtitle {
+     font-size: 5px;
+     margin: 3rem;
+    }
+</style>

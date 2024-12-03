@@ -1,0 +1,72 @@
+<div class="mb-8 text-center">
+  <strong class="title">
+    Products
+  </strong>
+</div>
+
+<div class="flex flex-wrap">
+  <div class="add">
+    <%= link_to "Add New Product", new_admin_product_path %>
+    <div class="relative">
+      <div class="flex-auto px-0 pt-0 pb-2">
+        <div class="p-0">
+          <table class="table table-hover table-inverse">
+            <thead class="align-bottom">
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th colspan="5"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @products.each do |product| %>
+              <div class="flex">
+                <tr>
+                 <td class="p-2 ">
+                    <div class="w-8 ">
+                      <%= image_tag product.image, size: 200 %>
+                    </div>
+                  </td>
+                    <td class=" align-middle">
+                     <%= link_to admin_product_path(product) do %>
+                    <div class="flex flex-col justify-center">
+                      <h6 class="text-lg font-bold"><%= product.name %></h6>
+                    </div>
+                    <% end %>
+                    </td>
+                  </div>
+
+                  <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                    <span class="font-semibold leading-tight text-sm text-slate-400"><%= l product.created_at, format: :short %></span>
+                  </td>
+                  <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                    <span class="font-semibold leading-tight text-sm text-slate-400"><%= l product.updated_at, format: :short %></span>
+                  </td>
+                  <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                    <%= link_to edit_admin_product_path(product), class: "font-semibold leading-tight text-xs text-slate-400" do %>
+                      Edit
+                    <% end %>
+                  </td>
+                  <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                    <%= link_to "Destroy", admin_product_path(product), method: :delete, "data-confirm" => "本当に消しますか？", class: 'link-text' %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .title {
+    font-size: 30px;
+  }
+   .add {
+     margin: 0 2rem;
+   }
+</style>

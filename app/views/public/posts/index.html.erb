@@ -1,0 +1,30 @@
+
+<div class="container px-5 px-sm-0">
+      <%= render '/public/posts/list', posts: @posts %>
+    <div class="cols">
+   　　　<h2 class="title text-center">Users</h2>
+            <tbody>
+              <% @users.each do |user| %>
+                   <%= link_to user_path(user) do %>
+                  <%= image_tag user.get_profile_image(100,100) %>
+                   <% end %>
+                <br>
+                  name: <%= link_to "#{user.name}",  user_path(user) %>
+            </tbody>
+             <% end %>
+      </div>
+</div>
+  <style>
+  .container {
+  display: flex;
+  flex-wrap: wrap;
+}
+  }
+  
+  .title {
+    font-size: 30px;
+    text-align: center; 
+  }
+  </style>
+      
+<%= paginate @posts %>
