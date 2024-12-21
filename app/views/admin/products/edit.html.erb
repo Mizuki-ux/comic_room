@@ -19,7 +19,8 @@
       <%= f.label :image, class: "title" %>
       <%= f.file_field :image, accept: "image/*" %>
     </div>
-    <%= f.submit  'Update' , class: "submit" %>
+    <%= f.submit  'Update' , class: "submit" %>|
+     <%= link_to "Back", admin_products_path%>
   <% end %>
 </div>
 

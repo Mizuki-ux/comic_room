@@ -3,6 +3,16 @@ class Public::SearchesController < ApplicationController
 
 def search
     @range = params[:range]
+    
+     if params[:latest]
+     @posts = Post.latest
+   elsif params[:old]
+     @posts = Post.old
+   elsif params[:star_count]
+     @posts = Post.star_count
+   else
+     @posts = Post.all
+   end
 
     if @range == "user"
     if params[:word].blank?

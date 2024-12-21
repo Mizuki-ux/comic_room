@@ -2,6 +2,9 @@
   <strong class="title">
     Products
   </strong>
+   <%= link_to '新しい順', admin_products_path(latest: "true") %>
+|<%= link_to '古い順', admin_products_path(old: "true") %>
+|<%= link_to '評価の高い順', admin_products_path(star_count: "true") %>
 </div>
 
 <div class="flex flex-wrap">

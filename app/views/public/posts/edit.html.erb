@@ -11,12 +11,51 @@
         <div class="form-group">
         <%= f.text_area :body, size: "50x5" %>
         </div>
+        
+    <% if @post.id %>
+      <div class="form-group pt-4" id="star">
+      <%= f.hidden_field :star, id: :review_star, class: 'form-control' %>
+      <div id="post_raty"></div>
+    </div>
+    <script>
+      $(document).on('turbolinks:load', function() {
+        let elem = document.querySelector('#post_raty');
+        if (elem == null) return;
 
+        elem.innerHTML = ""
+        let opt = {
+          starOn: "<%= asset_path('star-on.png') %>",
+          starOff: "<%= asset_path('star-off.png') %>",
+          starHalf: "<%= asset_path('star-half.png') %>",
+          scoreName: 'post[star]',
+        };
+        raty(elem, opt);
+      });
+    </script>
+  <% else %>
+   <div id="star_<%= @post.id %>"></div>
+   <script>
+   $(document).on('turbolinks:load', function() {
+     let elem = document.querySelector('#star_<%= @post.id %>');
+     if (elem == null) return;
+     
+     elem.innerHTML = "";
+     let opt = {  
+       starOn: "<%= asset_path('star-on.png') %>",
+       starOff: "<%= asset_path('star-off.png') %>",
+       starHalf: "<%= asset_path('star-half.png') %>",
+       score: "<%= @post.star %>",
+       readOnly: true,
+     };
+     raty(elem, opt);
+   });
+   </script>
+  <% end %>
           <div class="form-group">
             <%= f.submit "Update", class: "update"%>
           </div>
-      <% end %>
-
+     
+ <% end %>
    <div class="add">
       <%= link_to "Destroy", post_path(@post), class: 'btn btn-danger btn-block destroy', method: :delete, "data-confirm" => "本当に消しますか？" %>|
       <%= link_to "Back", post_path(@post.id) %>

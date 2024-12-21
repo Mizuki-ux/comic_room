@@ -9,7 +9,6 @@
     <script src="https://kit.fontawesome.com/806cf7db5f.js" crossorigin="anonymous"></script>
    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-
     <style>
       * {
         margin: 0;
@@ -28,11 +27,9 @@
         text-decoration: none; /* 下線を消す */
         color: #fff; /* 親要素の色を引き継ぐ */
         display: inline-block; /* インラインブロックにして、余白を制御 */
-        font-size: 25px;
       }
 
       .navbar-brand {
-        padding: 10px 40px 0 30px;
          font-family: 'Impact', sans-serif; /* フォントファミリーを変更 */
 
       }
@@ -69,7 +66,6 @@
         background: #fff;
       }
 
-
     </style>
   </head>
 
@@ -83,8 +79,10 @@
             ゲストさん
         　<% end %>
         </a>
-
-
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+           <i class="fa-solid fa-caret-down"></i>
+         </button>
       <% if user_signed_in? %>
         <div class="search_form">
           <%= form_with url: search_path, local: true, method: :get do |f| %>
@@ -92,13 +90,20 @@
             <%= f.select :range, options_for_select({ "User" => "user", "Post" => "post" , "Product" => "product" }) %>
             <%= f.select :search, options_for_select([["完全一致","perfect"], ["前方一致","forward"],  ["後方一致","backward"], ["部分一致","partial"]]) %>
             <%= f.submit "検索", class: "btn btn-primary" %>
-          <% end %>
+          <% end %></div>
+        <div class="serch_form" >
+            <table align="center">
+              <tr>
+                <div class="serch_form">
+                <%= form_with url: tagsearches_search_path,method: :get , local: true do |f| %>
+                <td><%= f.select :category, options_for_select(["学園", "ギャグ", "恋愛", "SF・ファンタジー", "ホラー", "スポーツ"], { prompt: "Select a genre" }), class: 'form-control' %></td>
+                <td><%= f.submit'タグ検索' %></td>
+                <% end %>
+                </div>
+              </tr>
+            </table>
         </div>
       <% end %>
- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-   <i class="fa-solid fa-caret-down"></i>
- </button>
 <div class="collapse navbar-collapse" id="navbarNavDropdown">
   <ul class="navbar-nav ml-auto">
     <% if user_signed_in? %>

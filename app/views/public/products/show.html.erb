@@ -3,6 +3,14 @@
     <div class="a">
       <h1 class="text-2xl font-bold">
         <%= @product.name %>
+        <span class="star"> 
+        <% average_rating = @average_star_rating[@product.id] %>
+          <% if average_rating %>
+            <%= average_rating %>/5
+          <% else %>
+            N/A
+          <% end %>
+      </span>
       </h1>
     </div>
   <div class="row">
@@ -21,10 +29,13 @@
 </div>
 
 <h2>コメント</h2>
-<% if @matching_post %>
-<div class="name">
-  <h3><%= @user.name %>: <span class="comment"><%= @matching_post.body %></span></h3>
+<% if @matching_posts.count != 0 %>
+ <% @matching_posts.each do |matching_post| %>
+ <div class="name">
+  <h4><%= matching_post.user.name %>: </h4>
+  <h4 class="comment"><%= matching_post.body %></h4>
 </div>
+ <% end %>
 <% else %>
   <p>一致する投稿は見つかりませんでした。</p>
 <% end %>
@@ -45,11 +56,17 @@
   }
   
   .comment {
-    font-size: 23px;
+    font-size: 20px;
+    padding: 4px 5px;
   }
   
   .name {
     margin: 0 2rem;
+    display: flex;
+  }
+  
+  .star {
+    font-size: 1.5rem;
   }
   
 </style>

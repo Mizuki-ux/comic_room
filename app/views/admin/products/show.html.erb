@@ -3,6 +3,14 @@
     <div class="a">
       <h1 class="text-2xl font-bold">
         <%= @product.name %>
+          <span class="star"> 
+            <% average_rating = @average_star_rating[@product.id] %>
+              <% if average_rating %>
+                <%= average_rating %>/5
+              <% else %>
+                N/A
+              <% end %>
+          </span>
          <span class="edit">
           <%= link_to edit_admin_product_path(@product), class: "text-center cursor-pointer" do %>
             Edit Product
@@ -25,8 +33,14 @@
   </div>
 </div>
 
-<% if @matching_post %>
-  <p><%= @matching_post.body %></p>
+<h2>コメント</h2>
+<% if @matching_posts.count != 0 %>
+ <% @matching_posts.each do |matching_post| %>
+ <div class="name">
+  <h4><%= matching_post.user.name %>: </h4>
+  <h4 class="comment"><%= matching_post.body %></h4>
+</div>
+ <% end %>
 <% else %>
   <p>一致する投稿は見つかりませんでした。</p>
 <% end %>
@@ -39,5 +53,19 @@
   .edit {
     font-size: 20px;
     margin: 1rem 0;
+  }
+  
+  .comment {
+    font-size: 20px;
+    padding: 4px 5px;
+  }
+  
+  .name {
+    margin: 0 2rem;
+    display: flex;
+  }
+  
+   .star {
+    font-size: 1.5rem;
   }
 </style>

@@ -69,8 +69,24 @@
       <%= link_to 'Product Index', admin_products_path %>
     </li>
     <li>
+       <%= link_to 'Post Comments', admin_post_comments_path %>
+    </li>
+    <li>
       <%= link_to 'Log Out', destroy_admin_session_path, method: :delete %>
     </li>
+    <% else %>
+      <li>
+        <%= link_to 'About', about_path %>
+      </li>
+      <li>
+        <%= link_to "Sign Up", new_user_registration_path %>
+      </li>
+      <li>
+        <%= link_to "Log In", new_user_session_path %>
+      </li>
+      <li>
+        <%= link_to 'Admin Page', admin_session_path %>
+      </li>
   <% end %>
   </ul>
 </div>

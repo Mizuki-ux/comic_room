@@ -1,5 +1,5 @@
 
-  <div class="container px-5 px-sm-0">
+  <div class="container px-1 px-sm-0">
      <%= render 'public/posts/list', posts: @posts %>
     <div class="row">
       <div class="col col-md-3">
@@ -20,16 +20,54 @@
             </tbody>
           </table>
         </div>
-   
-      <div class="cols col-md-7 offset-md-1">
+
+      <div class="cols col-md-8">
      　  <h2 class="users">Post</h2>
+     　<% if @post.product.present? %>
+     　<div class="favorite-title">
+          <h3>タイトル名: [<%= @post.product.name %>]
+           <span>
+            <% if @post.favorited_by?(current_user) %>
+              <%= link_to post_favorite_path(@post), method: :delete, class: 'favorites' do  %>
+                ♥<%= @post.favorites.count%>
+              <% end %>
+             <% else %>
+              <%= link_to post_favorite_path(@post), method: :post do %>
+                ♡<%= @post.favorites.count %>
+              <% end %>
+            <% end %>
+           </span>
+          </h3>
+        </div>
+        <% else %>
+          <p>商品情報がありません</p>
+        <% end %>
+        
             <table class="tables table-hover table-inverse">
               <thead>
                 <tr>
                   <th></th>
                   <th class="title">Title</th>
                   <th class="title">Comment</th>
-                  <th colspan="3"></th>
+                  <td class="review">
+              <div id="star_<%= @post.id %>"></div>
+          <script>
+          $(document).on('turbolinks:load', function() {
+            let elem = document.querySelector('#star_<%= @post.id %>');
+            if (elem == null) return;
+
+            elem.innerHTML = "";
+            let opt = {
+              starOn: "<%= asset_path('star-on.png') %>",
+              starOff: "<%= asset_path('star-off.png') %>",
+              starHalf: "<%= asset_path('star-half.png') %>",
+              score: "<%= @post.star %>",
+              readOnly: true,
+            };
+            raty(elem, opt);
+          });
+          </script>
+                  </td>
                 </tr>
               </thead>
              <tbody>
@@ -46,6 +84,12 @@
                   <td class="text">
                   <%= @post.body %>
                   </td>
+                  <td class=category>
+                  　　<% if @post.category.present? %>
+                  　　　　<%=link_to @post.category,tagsearches_search_path(category:@post.category), class: 'category' %>
+                  　　<% end %>
+                  </td>
+                 
                 </tr>
                  <tr>
             <td colspan="3" class="button-container">
@@ -57,86 +101,107 @@
           </tr>
             </tbody>
      　　　 </table>
-     　　　 
+
      　　　 <div>
           <p>コメント件数：<%= @post.post_comments.count %></p>
-          <% @post.post_comments.each do |post_comment| %>
-            <h4><%= post_comment.created_at.strftime('%Y/%m/%d') %>:
-               <%= post_comment.user.name %>
+            <% @post.post_comments.each do |post_comment| %>
+          <div>
+             <h4 class="new">
+               <strong><%= post_comment.user.name %></strong>
+               <%= post_comment.created_at.strftime('%Y/%m/%d') %>:
+                <span><%= post_comment.comment %>
+                <% if post_comment.user == current_user %>
+                  <%= link_to "Destroy", post_post_comment_path(post_comment.post, post_comment), method: :delete %>
+                <% end %></span>
             </h4>
-             <p><%= post_comment.comment %>
-             <% if post_comment.user == current_user %>
-             
-              <%= link_to "Destroy", post_post_comment_path(post_comment.post, post_comment), method: :delete %>
-              </p>
-             <% end %>
-          <% end %>
-        </div>
+            <% end %>
+          </div>
+
         <div>
           <%= form_with model: [@post, @post_comment] do |f| %>
             <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
             <%= f.submit "送信する" %>
           <% end %>
         </div>
-            
+
       </div>
     </div>
   </div>
 
 <style>
- 
+
   .row {
     display: flex;
   }
 
   .col {
-    width: 350px;
+    width: 300px;
     margin: 30px;
     text-align: left;
     font-size: 20px;
-    white-space: nowrap;
     overflow: auto;
   }
-  
-  .cols {
-    width: 80%;
-    white-space: nowrap;
-    overflow: auto;
-  }
-  
-  .text {
-   padding: 0 30px;
- }
 
-  .users {
-    margin: 0;
-    padding: 0;
-    font-size: 35px;
-  }
-  
-  .title {
-    font-size: 20px;
-    padding-right: 60px;
-  }
-  
-  .tables {
-    width: 80%;
-  }
-  
+ .cols {
+  width: 100%;
+}
+
+.text {
+  padding: 0 20px; /* テキストセルの余白を調整 */
+  width: auto; /* テキストセルの幅を自動調整 */
+}
+
+.users {
+  margin: 0;
+  padding: 0;
+  font-size: 35px;
+}
+
+.title {
+  font-size: 20px;
+  padding-right: 110px; /* タイトルの間隔を調整 */
+}
+
+.tables {
+  width: auto; /* テーブル全体の幅を調整 */
+}
   .button-container {
     text-align: right; /* リンクを右寄せ */
     margin-top: 20px;
   }
-  
+
   .link-text {
    font-size: 20px;
    border-radius: 20%;
    text-decoration: none; /* 下線を消す */
-   color:  #000; 
+   color:  #000;
    padding-left: 10px;
   }
-  
+
   .link-text:hover {
     text-decoration: underline; /* ホバー時の下線（任意） */
   }
+
+  .new {
+    font-size: 1rem;
+    white-space: normal;
+  }
+
+  .review {
+    margin: 0;
+    width: 30%;
+  }
+
+  .category {
+    margin: -65px;
+  }
+
+  .favorites {
+    color: #ff1493;
+  }
+
+/*.favorite-title {*/
+/*  display: flex;*/
+/*}*/
 </style>
+

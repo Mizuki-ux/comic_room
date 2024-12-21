@@ -8,9 +8,11 @@ Rails.application.routes.draw do
     get 'dashboards', to: 'dashboards#index'
     get 'dashboards/:id', to: 'dashboards#show', as: 'dashboard'
     get "search" => "searches#search"
+    get 'tagsearches/search', to: 'tagsearches#search'
     resources :users, only: [:show, :destroy]
    resources :products, only: %i[index show new create edit update]
    resources :posts, only: %i[show update]
+   resources :post_comments, only: [:index, :destroy] 
   end
 
   scope module: :public do
@@ -19,7 +21,9 @@ Rails.application.routes.draw do
   get 'mypage/:id', to: 'users#mypage', as: 'mypage'
   get "/homes/about" => "homes#about", as: "about"
   get "search" => "searches#search"
+  get 'tagsearches/search', to: 'tagsearches#search'
  resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
+ resource :favorite, only: [:create, :destroy]
   resources :post_comments, only: [:create, :destroy]
  end
  resources :users, only: [ :show, :edit, :update, :destroy]

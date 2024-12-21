@@ -7,6 +7,11 @@ class Admin::PostsController < ApplicationController
     @posts = Post.page(params[:page])
     @post_comment = PostComment.new
     @user = current_user
+    if @product.present?
+    @matching_post = @product.posts.find_by(title: @product.name)
+  else
+    # @productが存在しない場合の処理
+  end
   end
   
   def search

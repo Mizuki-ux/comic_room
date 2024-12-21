@@ -9,7 +9,7 @@
     <div class="nil">
     <h4 class="title">Title
      <span class="nil">
-     <%= f.select :product_id, options_for_select(@products.map{ |p| [p.name, p.id] }), class: "subtitle" %>
+     <%= f.select :product_id, options_for_select(@products.map { |p| [p.name, p.id] }, @post.product_id), { class: "subtitle" } %>
      </span>
     </h4>
     <%= f.text_field :title, size: "45" %>
@@ -20,6 +20,49 @@
     <%= f.text_area :body, size: "50x5"%>
     </div>
     
+    <% if @post.id.nil? %>
+    <div class="form-groups" id="star">
+      <%= f.hidden_field :star, id: :review_star, class: 'form-control' %>
+      <div id="post_raty"></div>
+    </div>
+    <script>
+      $(document).on('turbolinks:load', function() {
+        let elem = document.querySelector('#post_raty');
+        if (elem == null) return;
+
+        elem.innerHTML = ""
+        let opt = {
+          starOn: "<%= asset_path('star-on.png') %>",
+          starOff: "<%= asset_path('star-off.png') %>",
+          starHalf: "<%= asset_path('star-half.png') %>",
+          scoreName: 'post[star]',
+        };
+        raty(elem, opt);
+      });
+    </script>
+  <% else %>
+   <div id="star_<%= post.id %>"></div>
+   <script>
+   $(document).on('turbolinks:load', function() {
+     let elem = document.querySelector('#star_<%= post.id %>');
+     if (elem == null) return;
+     
+     elem.innerHTML = "";
+     let opt = {  
+       starOn: "<%= asset_path('star-on.png') %>",
+       starOff: "<%= asset_path('star-off.png') %>",
+       starHalf: "<%= asset_path('star-half.png') %>",
+       score: "<%= post.star %>",
+       readOnly: true,
+     };
+     raty(elem, opt);
+   });
+   </script>
+  <% end %>
+  <div class="form-group">
+  <label>Category</label>
+  <%= f.select :category, ["学園", "ギャグ", "恋愛", "SF・ファンタジー", "ホラー", "スポーツ"], { prompt: "Select a genre" }, class: 'form-control' %>
+</div>
     <div class=nil>
     <%= f.submit 'post' , class: "submit"%>
     </div>
@@ -34,16 +77,16 @@
         width: 500px;
         margin:0 auto;
     }
-    
+
     .title {
         font-size: 25px;
     }
-    
+
     .nil {
         height: 100px;
         margin: 10px;
     }
-    
+
     .submit {
         background: linear-gradient(to right, #fc4a1a, #1a2a6c);
         color: #fff;
@@ -51,9 +94,14 @@
         font-size: 30px;
         margin: 60px 150px;
     }
-    
+
     .subtitle {
      font-size: 5px;
      margin: 3rem;
+    }
+    
+    .form-groups {
+     text-align: center;
+     padding-top: 80px;
     }
 </style>

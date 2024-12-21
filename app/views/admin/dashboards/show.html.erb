@@ -1,12 +1,40 @@
- <div class="cols col-md-7 offset-md-1">
+
+  
+  
+  <%= render 'public/users/list', users: @users %>
+
+  <div class="container  px-1 px-sm-0">
+    <div class="row">
+      <div class="col col-md-3">
+        
+        <h2>User info</h2>
+          <%= image_tag @user.get_profile_image(100,100) %>
+          <table class="table">
+            <tbody>
+              <tr></tr>
+              <tr>
+                <th>name:</th>
+                <th><%= @user.name %></th>
+              </tr>
+              <tr></tr>
+              <tr>
+                <th>introduction: </th>
+                <th><%= @user.introduction %></th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="cols col-md-8">
           <% if @post %>
      　　　<h2 class="users"<%= @post.user.name %>></h2>
               <table class="table table-hover table-inverse">
                 <thead>
-                  <tr>
+                  <tr> 
                     <th></th>
                     <th>Title</th>
-                    <th colspan="3">Comment</th>
+                    <th>Comment</th>
+                    <th colspan="3"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -41,8 +69,8 @@
         
     　 </div>
     　</div>
+    　<%= paginate @posts, class: 'pagination' %>
     </div>
-<%= paginate @posts %>
 
 <style>
 
@@ -52,8 +80,8 @@
   }
 
   .col {
-    width: 350px;
-    margin: 30px;
+    width: 300px;
+    margin: 15px;
     text-align: left;
     font-size: 20px;
     white-space: nowrap;
@@ -89,8 +117,24 @@
     margin-top: 2rem;
   }
   
-  .image-container {
-  width: 100px; /* 画像の幅を100pxに指定 */
+ 
+  .pagination {
+     font-size: 25px;  /* ページネーションのフォントサイズを20pxに設定 */
+     font-weight: bold; /* ページネーションのテキストを太字にする */
+     justify-content: center;
+   }
+
+td.text, th {
+  width: 25%; /* テキストセルの幅を30%に設定 */
 }
+
+td.image-container {
+  width: 20%; /* 画像セルの幅を20%に設定 */
+}
+
 /*}*/
   </style>
+  
+  
+  
+  

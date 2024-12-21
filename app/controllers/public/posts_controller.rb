@@ -13,6 +13,7 @@ class Public::PostsController < ApplicationController
       else
         @user = current_user
         @posts = Post.all
+        @products = Product.all
         render :new
       end   
   end
@@ -22,6 +23,15 @@ class Public::PostsController < ApplicationController
     @post = Post.new
     @posts = Post.page(params[:page])
     @user = current_user
+    if params[:latest]
+       @posts = Post.latest
+     elsif params[:old]
+       @posts = Post.old
+     elsif params[:star_count]
+       @posts = Post.star_count
+     else
+       @posts = Post.all
+     end
   end
 
   def show
@@ -53,11 +63,12 @@ class Public::PostsController < ApplicationController
   
   def search
     @posts = Post.search(params[:word])
+   
   end
 
   private
 
   def post_params
-    params.require(:post).permit(:title, :user_id, :body, :image, :product_id)
+    params.require(:post).permit(:title, :user_id, :body, :image, :product_id, :star, :category)
   end
 end

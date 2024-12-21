@@ -1,0 +1,170 @@
+
+<div class="container">
+  <% if flash[:error] %>
+  <div class="alert alert-danger">
+    <%= flash[:error] %>
+  </div>
+<% end %>
+ <% flash.delete(:error) %>
+
+<table class='table table-hover table-inverse'>
+  <thead>
+    <tr>
+      <th></th>
+      <th class="text">Title</th>
+      <th>Opinion</th>
+      <th class="text">Tag</th>
+      <th></th>
+      <th class="subtext"></th>
+    </tr>
+  </thead>
+<tbody>
+  <% @posts.each do |post| %>
+    <% if post.category == "学園" %> <!-- カテゴリーが「ギャグ」の場合のみ表示 -->
+      <tr>
+        <td>
+        <% if post.user.present? %>
+          <%= link_to post.user do %>
+            <%= image_tag post.user.get_profile_image(50, 50) %>
+          <% end %>
+        </td>
+        <td><%= link_to post.title, post, class: "post_#{post.id}" %></td>
+        <td><%= post.body %></td>
+        <td>
+          <% if post.category.present? %>
+            <%= post.category %>
+          <% end %>
+        </td>
+          <%= render "public/tagsearches/btn", post: post %>
+        <td><p><%= post.post_comments.count %>コメ</p></td>
+      </tr>
+    <% end %> <!-- カテゴリーが「ギャグ」でない場合に表示 -->
+    <% elsif post.category == "ギャグ" %> <!-- カテゴリーが「ギャグ」の場合のみ表示 -->
+      <tr>
+        <td>
+          <% if post.user.present? %>
+            <%= link_to post.user do %>
+            <%= image_tag post.user.get_profile_image(50, 50) %>
+          <% end %>
+        </td>
+        <td><%= link_to post.title, post, class: "post_#{post.id}" %></td>
+        <td><%= post.body %></td>
+        <td>
+          <% if post.category.present? %>
+            <%= post.category %>
+          <% end %>
+        </td>
+          <%= render "public/tagsearches/btn", post: post %>
+          <!-- お気に入りボタンなどの内容 -->
+        </td>
+        <td><p><%= post.post_comments.count %>コメ</p></td>
+      </tr>
+     <% end %>
+      
+    <% elsif post.category == "恋愛" %> <!-- カテゴリーが「ギャグ」の場合のみ表示 -->
+      <tr>
+        <td>
+        <% if post.user.present? %>
+          <%= link_to post.user do %>
+            <%= image_tag post.user.get_profile_image(50, 50) %>
+          <% end %>
+        </td>
+        <td><%= link_to post.title, post, class: "post_#{post.id}" %></td>
+        <td><%= post.body %></td>
+        <td>
+          <% if post.category.present? %>
+            <%= post.category %>
+          <% end %>
+        </td>
+          <%= render "public/tagsearches/btn", post: post %>
+          <!-- お気に入りボタンなどの内容 -->
+        </td>
+        <td><p><%= post.post_comments.count %>コメ</p></td>
+        </tr>
+    <% end %>
+ 
+    <% elsif post.category == "SF・ファンタジー" %> <!-- カテゴリーが「ギャグ」の場合のみ表示 -->
+      <tr>
+        <td>
+        <% if post.user.present? %>
+          <%= link_to post.user do %>
+            <%= image_tag post.user.get_profile_image(50, 50) %>
+          <% end %>
+        </td>
+        <td><%= link_to post.title, post, class: "post_#{post.id}" %></td>
+        <td><%= post.body %></td>
+        <td>
+          <% if post.category.present? %>
+            <%= post.category %>
+          <% end %>
+        </td>
+          <%= render "public/tagsearches/btn", post: post %>
+          <!-- お気に入りボタンなどの内容 -->
+        </td>
+        <td><p><%= post.post_comments.count %>コメ</p></td>
+        </tr>
+    <% end %>
+ 
+    <% elsif post.category == "ホラー" %> <!-- カテゴリーが「ギャグ」の場合のみ表示 -->
+      <tr>
+        <td>
+        <% if post.user.present? %>
+          <%= link_to post.user do %>
+            <%= image_tag post.user.get_profile_image(50, 50) %>
+          <% end %>
+        </td>
+        <td><%= link_to post.title, post, class: "post_#{post.id}" %></td>
+        <td><%= post.body %></td>
+        <td>
+          <% if post.category.present? %>
+            <%= post.category %>
+          <% end %>
+        </td>
+          <%= render "public/tagsearches/btn", post: post %>
+          <!-- お気に入りボタンなどの内容 -->
+        </td>
+        <td><p><%= post.post_comments.count %>コメ</p></td>
+        </tr>
+    <% end %>
+   
+    <% elsif post.category == "スポーツ" %> <!-- カテゴリーが「ギャグ」の場合のみ表示 -->
+      <tr>
+        <td>
+        <% if post.user.present? %>
+          <%= link_to post.user do %>
+            <%= image_tag post.user.get_profile_image(50, 50) %>
+          <% end %>
+        </td>
+        <td><%= link_to post.title, post, class: "post_#{post.id}" %></td>
+        <td><%= post.body %></td>
+        <td>
+          <% if post.category.present? %>
+            <%= post.category %>
+          <% end %>
+        </td>
+          <%= render "public/tagsearches/btn", post: post %>
+          <!-- お気に入りボタンなどの内容 -->
+        </td>
+        <td><p><%= post.post_comments.count %>コメ</p></td>
+      </tr>
+         <% end %>
+       <% end %>
+      <% end %>
+    </tbody>
+  </table>
+ 
+ <style>
+  .table {
+    width: 100%;
+  }
+
+   .table td {
+    width: auto; /* セルの幅を自動調整 */
+  }
+  
+  .text{
+    width: 180px;
+  }
+  
+  
+ </style>
