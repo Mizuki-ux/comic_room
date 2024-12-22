@@ -1,9 +1,9 @@
 class Public::TagsearchesController < ApplicationController
   def search
-   
+
     @category = params[:category]
     @posts = Post.where("category LIKE?","%#{@category}%")
-    
+
 
    if @posts.present?
       # カテゴリーが一致する場合、結果を表示
@@ -13,6 +13,6 @@ class Public::TagsearchesController < ApplicationController
       flash[:error] = "該当するカテゴリーは見つかりませんでした。"
       # redirect_to tagsearches_search_path
     end
-      render "tagsearch"
+      render "public/tagsearches/tagsearch"
   end
 end

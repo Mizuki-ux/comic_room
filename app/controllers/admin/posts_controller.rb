@@ -2,7 +2,7 @@ class Admin::PostsController < ApplicationController
   layout 'admin'
   before_action :authenticate_admin!
   before_action :set_post, only: %i[show update]
-  
+
   def show
     @posts = Post.page(params[:page])
     @post_comment = PostComment.new
@@ -13,7 +13,7 @@ class Admin::PostsController < ApplicationController
     # @productが存在しない場合の処理
   end
   end
-  
+
   def search
     @posts = Post.search(params[:word])
   end
