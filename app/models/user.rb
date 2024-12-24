@@ -19,7 +19,7 @@ class User < ApplicationRecord
 
           # パスワードの長さのバリデーション（deviseが既に設定しているがカスタマイズしたい場合）
          validates :password, length: { minimum: 6 }, allow_nil: true
-         validates :search, presence: true
+
 
  def get_profile_image(width, height)
   unless profile_image.attached?
