@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     get "search" => "searches#search"
     get 'tagsearches/search', to: 'tagsearches#search'
     resources :users, only: [:show, :destroy]
-   resources :products, only: %i[index show new create edit update]
+   resources :products, only: %i[index show new create edit update destroy]
    resources :posts, only: %i[show update]
    resources :post_comments, only: [:index, :destroy] 
   end

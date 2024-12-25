@@ -6,7 +6,7 @@ class Product < ApplicationRecord
  end
  has_one_attached :image
  has_many :posts
-has_many :favorites, dependent: :destroy
+ has_many :favorites, dependent: :destroy
  
   scope :latest, -> {order(created_at: :desc)}
   scope :old, -> {order(created_at: :asc)}

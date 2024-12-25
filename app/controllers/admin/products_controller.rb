@@ -1,7 +1,7 @@
 class Admin::ProductsController < ApplicationController
   layout 'admin'
   before_action :authenticate_admin!
-  before_action :set_product, only: %i[show edit update]
+  before_action :set_product, only: %i[ edit update]
 
   
  def index
@@ -41,7 +41,7 @@ class Admin::ProductsController < ApplicationController
   
   def destroy
     product = Product.find(params[:id])
-     product.destroy
+    product.destroy
     redirect_to admin_products_path
   end   
   
