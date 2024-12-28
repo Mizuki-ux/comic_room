@@ -5,7 +5,7 @@ class Product < ApplicationRecord
    validates :image
  end
  has_one_attached :image
- has_many :posts
+ has_many :posts, dependent: :destroy
  has_many :favorites, dependent: :destroy
  
   scope :latest, -> {order(created_at: :desc)}
